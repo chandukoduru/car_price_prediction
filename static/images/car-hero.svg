@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 440" role="img" aria-labelledby="title description">
+  <title id="title">Modern blue car illustration</title>
+  <desc id="description">A blue sedan shown from the side on a soft oval shadow.</desc>
+  <defs>
+    <linearGradient id="body" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#b9dcff"/>
+      <stop offset=".42" stop-color="#5296ed"/>
+      <stop offset="1" stop-color="#1f5fb7"/>
+    </linearGradient>
+    <linearGradient id="glass" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#d9efff"/>
+      <stop offset="1" stop-color="#6c9ec9"/>
+    </linearGradient>
+    <linearGradient id="tire" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#34445a"/>
+      <stop offset="1" stop-color="#101b2c"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-50%" width="140%" height="200%">
+      <feGaussianBlur stdDeviation="13"/>
+    </filter>
+  </defs>
+  <ellipse cx="451" cy="359" rx="342" ry="27" fill="#07152a" opacity=".45" filter="url(#shadow)"/>
+  <path d="M118 286c6-27 21-45 54-57l101-35 92-98c19-20 41-30 70-30h119c31 0 56 13 77 39l66 83 63 22c29 10 46 32 48 64l2 35c1 20-11 34-32 37l-49 5H169l-36-14c-19-8-25-24-21-51z" fill="url(#body)" stroke="#d7ecff" stroke-width="5"/>
+  <path d="m291 185 84-87c15-16 34-23 59-23h51v111H291zm218-110h62c25 0 44 10 61 31l61 79H509z" fill="url(#glass)" stroke="#d9edff" stroke-width="5" stroke-linejoin="round"/>
+  <path d="M488 76v111m-135 4 2 65m159-64 4 66" fill="none" stroke="#174d90" stroke-width="7" opacity=".85"/>
+  <path d="m160 246 88-26m507 10 46 15" fill="none" stroke="#d6ecff" stroke-width="7" stroke-linecap="round" opacity=".7"/>
+  <path d="M116 281h58m592 18h76" fill="none" stroke="#f4fbff" stroke-width="12" stroke-linecap="round"/>
+  <path d="M187 302h538" fill="none" stroke="#123c70" stroke-width="5" opacity=".6"/>
+  <path d="M137 268h45v25h-52zm684 1h34l2 29h-46z" fill="#ffd985"/>
+  <circle cx="280" cy="319" r="63" fill="url(#tire)"/>
+  <circle cx="280" cy="319" r="36" fill="#c6d9ed"/>
+  <circle cx="280" cy="319" r="23" fill="#607b99"/>
+  <path d="M280 296v46m-23-23h46m-39-16 32 32m0-32-32 32" stroke="#dceaf7" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="685" cy="319" r="63" fill="url(#tire)"/>
+  <circle cx="685" cy="319" r="36" fill="#c6d9ed"/>
+  <circle cx="685" cy="319" r="23" fill="#607b99"/>
+  <path d="M685 296v46m-23-23h46m-39-16 32 32m0-32-32 32" stroke="#dceaf7" stroke-width="4" stroke-linecap="round"/>
+  <path d="M367 238h168" stroke="#e5f3ff" stroke-width="4" stroke-linecap="round" opacity=".7"/>
+</svg>

@@ -1,0 +1,37 @@
+[
+  {
+    "label": "Audi",
+    "filename": "audi.jpg",
+    "source_file": "Cars Dataset/test/Audi/1000.jpg"
+  },
+  {
+    "label": "Hyundai Creta",
+    "filename": "hyundai-creta.jpg",
+    "source_file": "Cars Dataset/test/Hyundai Creta/102.jpg"
+  },
+  {
+    "label": "Mahindra Scorpio",
+    "filename": "mahindra-scorpio.jpg",
+    "source_file": "Cars Dataset/test/Mahindra Scorpio/111.jpg"
+  },
+  {
+    "label": "Rolls Royce",
+    "filename": "rolls-royce.jpg",
+    "source_file": "Cars Dataset/test/Rolls Royce/101.jpg"
+  },
+  {
+    "label": "Swift",
+    "filename": "swift.jpg",
+    "source_file": "Cars Dataset/test/Swift/101.jpg"
+  },
+  {
+    "label": "Tata Safari",
+    "filename": "tata-safari.jpg",
+    "source_file": "Cars Dataset/test/Tata Safari/116.jpg"
+  },
+  {
+    "label": "Toyota Innova",
+    "filename": "toyota-innova.jpg",
+    "source_file": "Cars Dataset/test/Toyota Innova/1002.jpg"
+  }
+]

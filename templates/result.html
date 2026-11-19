@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Your Estimate | AutoValue{% endblock %}
+{% block content %}
+<section class="result-page section-pad">
+  <div class="container result-container">
+    <div class="text-center mb-4"><span class="eyebrow eyebrow-light">YOUR CAR VALUATION</span><h1 class="page-title">Here’s your estimate</h1><p class="page-subtitle">A data-informed starting point for your next decision.</p></div>
+    <div class="price-card">
+      <img class="result-car-image" src="{{ url_for('static', filename='images/car-hero.svg') }}" alt="Blue car illustration">
+      <span class="price-label">ESTIMATED SELLING PRICE</span>
+      <div class="price-value">₹{{ "{:,.0f}".format(price_rupees) }}</div>
+      <div class="price-secondary">₹{{ "{:,.2f}".format(price_lakhs) }} lakh</div>
+      <p class="price-note"><i class="bi bi-info-circle me-1"></i>This is a model estimate, not a guaranteed market price.</p>
+    </div>
+    <div class="details-card">
+      <h2><i class="bi bi-clipboard2-check me-2"></i>Submitted car details</h2>
+      <div class="row g-3">
+        <div class="col-6 col-md-4"><span class="detail-label">Car make and model</span><strong>{{ details.car_name }}</strong></div>
+        <div class="col-6 col-md-4"><span class="detail-label">Manufacturing year</span><strong>{{ details.year }}</strong></div>
+        <div class="col-6 col-md-4"><span class="detail-label">Present price</span><strong>₹{{ "{:,.2f}".format(details.present_price) }} lakh</strong></div>
+        <div class="col-6 col-md-4"><span class="detail-label">Kilometers driven</span><strong>{{ details.kms }} km</strong></div>
+        <div class="col-6 col-md-4"><span class="detail-label">Fuel type</span><strong>{{ details.fuel }}</strong></div>
+        <div class="col-6 col-md-4"><span class="detail-label">Seller type</span><strong>{{ details.seller }}</strong></div>
+        <div class="col-6 col-md-4"><span class="detail-label">Transmission</span><strong>{{ details.transmission }}</strong></div>
+        <div class="col-6 col-md-4"><span class="detail-label">Previous owners</span><strong>{{ details.owner }}</strong></div>
+      </div>
+    </div>
+    <div class="text-center result-actions">
+      <a href="{{ url_for('home') }}#predict-form" class="btn btn-primary btn-lg"><i class="bi bi-arrow-repeat me-2"></i>Predict another car</a>
+      <a href="{{ url_for('home') }}" class="btn btn-reset btn-lg ms-2">Back to home</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}About the Project | AutoValue{% endblock %}
+{% block content %}
+<section class="about-hero section-pad">
+  <div class="container narrow-container">
+    <span class="eyebrow eyebrow-light">ABOUT THE PROJECT</span>
+    <h1 class="page-title">Making resale estimates easier to understand.</h1>
+    <p class="page-subtitle">AutoValue is an academic demonstration of a complete machine-learning workflow—from data preparation and model evaluation to a responsive web application.</p>
+    <div class="about-panel">
+      <h2>Project overview</h2>
+      <p>The application predicts a used car’s selling price from its manufacturing year, present price, kilometers driven, fuel, seller type, transmission, and previous owners. The target is learned from the CarDekho used-car dataset; the project compares Linear Regression, Decision Tree, and Random Forest regressors using a held-out test set.</p>
+      <h2>Responsible interpretation</h2>
+      <p>A prediction reflects patterns in the training data, not a physical inspection or a live market quote. Actual resale prices can vary by location, condition, service history, negotiation, and market timing. Always use the estimate as a reference—not a promise.</p>
+      <h2>Technology</h2>
+      <div class="tech-pills"><span>Python</span><span>Pandas &amp; NumPy</span><span>Scikit-learn</span><span>Flask</span><span>Bootstrap 5</span><span>Joblib</span></div>
+    </div>
+    <a class="btn btn-primary mt-4" href="{{ url_for('home') }}#predict-form">Try a prediction <i class="bi bi-arrow-right ms-2"></i></a>
+  </div>
+</section>
+{% endblock %}

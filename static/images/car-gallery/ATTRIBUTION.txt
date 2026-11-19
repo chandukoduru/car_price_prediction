@@ -1,0 +1,5 @@
+Car Images Dataset by Kshitij Kumar
+Source: https://www.kaggle.com/datasets/kshitij192/cars-image-dataset
+Dataset license: GPL-2.0 (as listed on Kaggle).
+The site gallery contains one representative image per dataset class.
+Review the dataset page and license before redistributing these images.

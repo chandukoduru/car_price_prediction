@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+env/
+.env
+models/*.pkl
+!models/best_model.pkl
+models/*.joblib
+!dataset/.gitkeep
+!models/.gitkeep
+!static/images/.gitkeep

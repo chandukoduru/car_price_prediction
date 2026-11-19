@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+{% block title %}AutoValue | Estimate Your Car's Worth{% endblock %}
+{% block content %}
+<section class="hero-section">
+  <div class="container hero-content">
+    <div class="row align-items-center gy-5">
+      <div class="col-lg-7">
+        <span class="eyebrow"><i class="bi bi-stars me-2"></i>SMARTER USED-CAR VALUATION</span>
+        <h1>Know what your<br><span>car is worth.</span></h1>
+        <p class="hero-copy">A data-driven resale estimate, built from real-world car specifications and machine learning. Make your next move with more confidence.</p>
+        <a class="btn btn-primary btn-lg hero-cta" href="#predict-form">Predict your car price <i class="bi bi-arrow-right ms-2"></i></a>
+        <div class="hero-trust"><i class="bi bi-shield-check me-2"></i>Transparent estimate <span class="mx-2">·</span> No sign-up needed</div>
+      </div>
+      <div class="col-lg-5">
+        <div class="hero-visual">
+          <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+          <div class="visual-glow"></div>
+          <div class="floating-tag"><i class="bi bi-graph-up-arrow"></i><span>Data-driven<br><b>valuation</b></span></div>
+          <div class="car-illustration">
+            <img src="{{ url_for('static', filename='images/car-hero.svg') }}" alt="Illustration of a blue modern car">
+          </div>
+          <div class="visual-caption"><span class="caption-dot"></span> Intelligent pricing, made simple</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% if car_gallery %}
+<section class="car-gallery-section" aria-labelledby="car-gallery-title">
+  <div class="container">
+    <div class="gallery-heading">
+      <div>
+        <span class="eyebrow eyebrow-light">FROM THE IMAGE DATASET</span>
+        <h2 id="car-gallery-title">A closer look at the cars</h2>
+      </div>
+      <p>Representative images from seven vehicle categories.</p>
+    </div>
+    <div class="row g-3">
+      {% for car in car_gallery %}
+      <div class="col-6 col-md-4 col-lg">
+        <figure class="gallery-card">
+          <img src="{{ url_for('static', filename='images/car-gallery/' ~ car.filename) }}" alt="{{ car.label }} car" loading="lazy">
+          <figcaption>{{ car.label }}</figcaption>
+        </figure>
+      </div>
+      {% endfor %}
+    </div>
+    <p class="gallery-credit">Images: Kshitij Kumar, <a href="https://www.kaggle.com/datasets/kshitij192/cars-image-dataset" target="_blank" rel="noopener noreferrer">Kaggle Car Images Dataset</a> (GPL-2.0).</p>
+  </div>
+</section>
+{% endif %}
+
+<section class="section-pad" id="predict-form">
+  <div class="container">
+    <div class="section-heading text-center">
+      <span class="eyebrow eyebrow-light">YOUR ESTIMATE STARTS HERE</span>
+      <h2>Tell us about your car</h2>
+      <p>Share a few details to get an instant model-based estimate.</p>
+      <img class="form-car-image" src="{{ url_for('static', filename='images/car-hero.svg') }}" alt="Blue car illustration">
+    </div>
+    <div class="form-card mx-auto">
+      {% if errors %}
+      <div class="alert alert-danger" role="alert">
+        <strong>Please check the following:</strong>
+        <ul class="mb-0 mt-2">{% for error in errors %}<li>{{ error }}</li>{% endfor %}</ul>
+      </div>
+      {% endif %}
+      <form method="post" action="{{ url_for('predict') }}" id="car-form" novalidate>
+        <div class="row g-4">
+          <div class="col-md-6">
+            <label for="car_name" class="form-label">Car make and model</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-car-front"></i></span>
+              <select class="form-select" id="car_name" name="car_name" required>
+                <option value="">Select a car model</option>
+                {% for car_model in car_models %}
+                <option value="{{ car_model }}" {% if form and form.get('car_name', '').casefold() == car_model.casefold() %}selected{% endif %}>{{ car_model|title }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="form-text">Choose from car models in the dataset.</div>
+          </div>
+          <div class="col-md-6">
+            <label for="year" class="form-label">Manufacturing year</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-calendar3"></i></span>
+              <input class="form-control" id="year" name="year" type="number" min="1900" max="{{ current_year or 2100 }}" placeholder="e.g. 2018" value="{{ form.get('year', '') if form else '' }}" required>
+            </div>
+            <div class="form-text">The year shown on the registration certificate.</div>
+          </div>
+          <div class="col-md-6">
+            <label for="present_price" class="form-label">Present price <span class="unit-note">(₹ lakh)</span></label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-currency-rupee"></i></span>
+              <input class="form-control" id="present_price" name="present_price" type="number" min="0.01" step="0.01" placeholder="e.g. 8.50" value="{{ form.get('present_price', '') if form else '' }}" required>
+            </div>
+            <div class="form-text">Approximate current ex-showroom price in lakhs.</div>
+          </div>
+          <div class="col-md-6">
+            <label for="kms_driven" class="form-label">Kilometers driven</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-speedometer"></i></span>
+              <input class="form-control" id="kms_driven" name="kms_driven" type="number" min="0" step="1" placeholder="e.g. 42,000" value="{{ form.get('kms_driven', '') if form else '' }}" required>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label for="fuel_type" class="form-label">Fuel type</label>
+            <select class="form-select" id="fuel_type" name="fuel_type" required>
+              <option value="">Choose fuel type</option>
+              {% for value in ['Petrol', 'Diesel', 'CNG'] %}<option value="{{ value }}" {% if form and form.get('fuel_type') == value %}selected{% endif %}>{{ value }}</option>{% endfor %}
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label for="seller_type" class="form-label">Seller type</label>
+            <select class="form-select" id="seller_type" name="seller_type" required>
+              <option value="">Choose seller type</option>
+              {% for value in ['Dealer', 'Individual'] %}<option value="{{ value }}" {% if form and form.get('seller_type') == value %}selected{% endif %}>{{ value }}</option>{% endfor %}
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label for="transmission" class="form-label">Transmission</label>
+            <select class="form-select" id="transmission" name="transmission" required>
+              <option value="">Choose transmission</option>
+              {% for value in ['Manual', 'Automatic'] %}<option value="{{ value }}" {% if form and form.get('transmission') == value %}selected{% endif %}>{{ value }}</option>{% endfor %}
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label for="owner" class="form-label">Previous owners</label>
+            <select class="form-select" id="owner" name="owner" required>
+              <option value="">Choose owner count</option>
+              {% for value, label in [(0, 'First owner'), (1, 'Second owner'), (2, 'Third owner'), (3, 'Fourth or more owner')] %}
+              <option value="{{ value }}" {% if form and form.get('owner') == value|string %}selected{% endif %}>{{ label }} ({{ value }})</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+        <div class="form-actions mt-4">
+          <button type="submit" class="btn btn-primary btn-lg"><i class="bi bi-stars me-2"></i>Predict price</button>
+          <button type="reset" class="btn btn-reset btn-lg"><i class="bi bi-arrow-counterclockwise me-2"></i>Reset</button>
+        </div>
+        <p class="form-disclaimer mt-3 mb-0"><i class="bi bi-info-circle me-1"></i>Predictions are estimates based on a trained model, not guaranteed market prices.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section class="how-section section-pad">
+  <div class="container">
+    <div class="section-heading text-center">
+      <span class="eyebrow eyebrow-light">SIMPLE BY DESIGN</span><h2>How it works</h2>
+      <p>From car details to a helpful estimate in three steps.</p>
+    </div>
+    <div class="row g-4 mt-2">
+      {% for number, icon, title, text in [('01', 'bi-ui-checks', 'Share the details', 'Enter your car’s year, price, mileage and specifications.'), ('02', 'bi-cpu', 'Model evaluates', 'A machine-learning pipeline compares your details with learned patterns.'), ('03', 'bi-currency-rupee', 'See your estimate', 'Get a resale estimate in Indian Rupees, ready to inform your next step.')] %}
+      <div class="col-md-4"><div class="step-card"><div class="step-top"><span class="step-number">{{ number }}</span><i class="bi {{ icon }}"></i></div><h3>{{ title }}</h3><p>{{ text }}</p></div></div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="tech-strip">
+  <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+    <div><span class="eyebrow">BUILT WITH OPEN-SOURCE TOOLS</span><h2>Practical machine learning. Clear results.</h2></div>
+    <div class="tech-pills"><span>Python</span><span>Scikit-learn</span><span>Flask</span><span>Bootstrap</span></div>
+  </div>
+</section>
+{% endblock %}
